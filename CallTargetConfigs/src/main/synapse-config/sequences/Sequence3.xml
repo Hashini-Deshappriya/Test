@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="Sequence3" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <call blocking="true">
+        <endpoint>
+            <address statistics="enable" trace="enable" uri="https://run.mocky.io/v3/efc56fb5-9e99-420e-9da1-3b8cb13cfc79">
+                <suspendOnFailure>
+                    <initialDuration>-1</initialDuration>
+                    <progressionFactor>1</progressionFactor>
+                </suspendOnFailure>
+                <markForSuspension>
+                    <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                </markForSuspension>
+            </address>
+        </endpoint>
+    </call>
+    <log level="full">
+        <property expression="json-eval($.status)" name="status"/>
+    </log>
+    <filter regex="inprogress" source="json-eval($.status)">
+        <then>
+            <sequence key="Sequence"/>
+        </then>
+        <else>
+            <respond/>
+        </else>
+    </filter>
+</sequence>

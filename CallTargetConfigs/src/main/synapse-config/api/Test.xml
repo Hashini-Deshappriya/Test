@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/test" name="Test" version-type="context" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST GET" url-mapping="/test1">
+        <inSequence>
+            <sequence key="Sequence3"/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <respond/>
+        </faultSequence>
+    </resource>
+</api>

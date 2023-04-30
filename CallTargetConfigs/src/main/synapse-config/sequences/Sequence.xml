@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="Sequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="count" scope="default" type="INTEGER" value="1"/>
+    <script language="js"><![CDATA[var time1 = mc.getProperty("count");
+if (time1 < mc.getProperty("countnew")){
+    time1 = mc.getProperty("countnew");
+}
+    
+var console= mc.getServiceLog(); 
+
+var add = 1;
+var time2 = Number(time1) + Number(add);
+
+mc.setProperty("count", time2);
+mc.setProperty("countnew", time2);
+
+
+time1 = time2;
+
+
+java.lang.Thread.sleep(5000);]]></script>
+    <filter xpath="$ctx:count &lt; 20">
+        <then>
+            <sequence key="Sequence3"/>
+        </then>
+        <else>
+            <respond/>
+        </else>
+    </filter>
+</sequence>
